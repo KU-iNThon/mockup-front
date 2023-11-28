@@ -13,8 +13,9 @@ def main_page() -> None:
 if __name__ in {"__main__", "__mp_main__"}:
     # import pages
     from mylib.domain.login.view import login
+    from mylib.domain.profile.view import profile
 
-    views = [login]
+    views = [login, profile]
 
     app.add_middleware(AuthMiddleware)
     ui.run(storage_secret="happy development!!")
