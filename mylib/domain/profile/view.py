@@ -29,11 +29,9 @@ class ProfileView:
     def __call__(self):
         @ui.page("/profile")
         async def page():
-            await gather(
-                self.set_info(title="이용자 정보"),
-                self.set_group(title="가입한 소모임", data=self.__participant_rows),
-                self.set_group(title="운영중인 소모임", data=self.__managed_rows),
-            )
+            await self.set_info(title="이용자 정보"),
+            await self.set_group(title="가입한 소모임", data=self.__participant_rows),
+            await self.set_group(title="운영중인 소모임", data=self.__managed_rows),
 
         return page
 

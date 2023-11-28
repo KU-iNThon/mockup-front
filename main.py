@@ -14,8 +14,9 @@ if __name__ in {"__main__", "__mp_main__"}:
     # import pages
     from mylib.domain.login.view import login
     from mylib.domain.profile.view import profile
+    from mylib.domain.recruit.view import recruit
 
-    views = [login, profile]
+    views = [login, profile, recruit]
 
     app.add_middleware(AuthMiddleware)
     ui.run(storage_secret="happy development!!")
