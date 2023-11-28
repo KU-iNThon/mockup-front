@@ -4,7 +4,7 @@ from asyncio import gather
 from nicegui import ui
 
 
-class ProfileView:
+class RecruitView:
     def __init__(self):
         # TODO :  DB Sync
         self.__columns = [
@@ -27,7 +27,7 @@ class ProfileView:
         ]
 
     def __call__(self):
-        @ui.page("/profile")
+        @ui.page("/groups/recruits")
         async def page():
             await self.set_info(title="이용자 정보"),
             await self.set_group(title="가입한 소모임", data=self.__participant_rows),
@@ -71,4 +71,4 @@ class ProfileView:
             pass
 
 
-profile = ProfileView()()
+recruit = RecruitView()()
