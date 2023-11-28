@@ -2,6 +2,8 @@
 
 from nicegui import ui
 
+from mylib.common.component.menu import set_menu
+
 
 class RecruitView:
     def __init__(self):
@@ -19,6 +21,7 @@ class RecruitView:
     def __call__(self):
         @ui.page("/groups/recruits")
         async def page():
+            await set_menu()
             await self.set_group(title="모집글", data=self.__rows),
 
         return page

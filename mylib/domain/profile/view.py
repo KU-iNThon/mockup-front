@@ -3,6 +3,8 @@ from asyncio import gather
 
 from nicegui import ui
 
+from mylib.common.component.menu import set_menu
+
 
 class ProfileView:
     def __init__(self):
@@ -29,6 +31,7 @@ class ProfileView:
     def __call__(self):
         @ui.page("/profile")
         async def page():
+            await set_menu()
             await self.set_info(title="이용자 정보"),
             await self.set_group(title="가입한 소모임", data=self.__participant_rows),
             await self.set_group(title="운영중인 소모임", data=self.__managed_rows),
