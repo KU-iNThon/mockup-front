@@ -39,7 +39,14 @@ class ProfileView:
         return page
 
     async def set_group(self, title: str, data: list):
-        with ui.table(title=title, columns=self.__columns, rows=data, pagination=10).classes("w-96") as table:
+        with ui.table(
+            title=title,
+            columns=self.__columns,
+            rows=data,
+            pagination=10,
+            selection="single",
+            on_select=lambda e: ui.open(f"/group/{e.selection[0]['id']}"),
+        ).classes("w-96") as table:
             with table.add_slot("top-right"):
                 with ui.input(placeholder="Search").props("type=search").bind_value(table, "filter").add_slot("append"):
                     ui.icon("search")

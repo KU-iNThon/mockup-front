@@ -16,6 +16,8 @@ class GroupView:
         @ui.page("/group/{group_id}")
         async def page(group_id: int):
             await set_menu()
+            ui.html("<h1>소모임 이름</h1>")
+            ui.html("<p>소모임 설명</p>")
             await self.set_notices()
             await self.set_tasks()
             await self.set_new_participant_alarm()
@@ -89,6 +91,7 @@ class GroupView:
                 "header",
                 """
                          <q-tr :props="props">
+                            <q-th auto-width />
                             <q-th auto-width>
                                 활동번호
                             </q-th>
@@ -102,6 +105,11 @@ class GroupView:
                 "body",
                 """
                         <q-tr :props="props">
+                            <q-td auto-width >
+                                <q-btn size="sm" color="warning" round dense icon="delete"
+                                    @click="() => $parent.$emit('delete', props.row)"
+                                />
+                            </q-td>
                             <q-td key="id" :props="props">
                                 {{ props.row.id }}
                             </q-td>
@@ -119,6 +127,7 @@ class GroupView:
                         color="accent",
                         on_click=lambda: self.add_row(table=table, rows=rows, msg="새로운 활동을 등록했습니다."),
                     ).classes("w-full")
+            table.on("delete", lambda e: self.delete(table=table, e=e, rows=rows, msg=f'활동 {e.args["id"]}번을 삭제했습니다.'))
 
     async def set_new_participant_alarm(self):
         columns = [
