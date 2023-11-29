@@ -38,34 +38,34 @@ class GroupView:
             table.add_slot(
                 "header",
                 """
-                         <q-tr :props="props">
-                            <q-th auto-width />
-                            <q-th auto-width>
-                                공지번호
-                            </q-th>
-                            <q-th auto-width>
-                                제목
-                            </q-th>
-                        </q-tr>
-                        """,
+                             <q-tr :props="props">
+                                <q-th auto-width />
+                                <q-th auto-width>
+                                    공지번호
+                                </q-th>
+                                <q-th auto-width>
+                                    제목
+                                </q-th>
+                            </q-tr>
+                            """,
             )
             table.add_slot(
                 "body",
                 """
-                        <q-tr :props="props">
-                            <q-td auto-width >
-                                <q-btn size="sm" color="warning" round dense icon="delete"
-                                    @click="() => $parent.$emit('delete', props.row)"
-                                />
-                            </q-td>
-                            <q-td key="id" :props="props">
-                                {{ props.row.id }}
-                            </q-td>
-                            <q-td key="title" :props="props">
-                                {{ props.row.title }}
-                            </q-td>
-                        </q-tr>
-                        """,
+                            <q-tr :props="props">
+                                <q-td auto-width >
+                                    <q-btn size="sm" color="warning" round dense icon="delete"
+                                        @click="() => $parent.$emit('delete', props.row)"
+                                    />
+                                </q-td>
+                                <q-td key="id" :props="props">
+                                    {{ props.row.id }}
+                                </q-td>
+                                <q-td key="title" :props="props">
+                                    {{ props.row.title }}
+                                </q-td>
+                            </q-tr>
+                            """,
             )
             with table.add_slot("bottom-row"):
                 with table.cell().props("colspan=3"):
@@ -90,34 +90,40 @@ class GroupView:
             table.add_slot(
                 "header",
                 """
-                         <q-tr :props="props">
-                            <q-th auto-width />
-                            <q-th auto-width>
-                                활동번호
-                            </q-th>
-                            <q-th auto-width>
-                                활동명
-                            </q-th>
-                        </q-tr>
-                        """,
+                             <q-tr :props="props">
+                                <q-th auto-width />
+                                <q-th auto-width>
+                                    활동번호
+                                </q-th>
+                                <q-th auto-width>
+                                    활동명
+                                </q-th>
+                                <q-th auto-width />
+                            </q-tr>
+                            """,
             )
             table.add_slot(
                 "body",
                 """
-                        <q-tr :props="props">
-                            <q-td auto-width >
-                                <q-btn size="sm" color="warning" round dense icon="delete"
-                                    @click="() => $parent.$emit('delete', props.row)"
-                                />
-                            </q-td>
-                            <q-td key="id" :props="props">
-                                {{ props.row.id }}
-                            </q-td>
-                            <q-td key="title" :props="props">
-                                {{ props.row.title }}
-                            </q-td>
-                        </q-tr>
-                        """,
+                            <q-tr :props="props">
+                                <q-td auto-width >
+                                    <q-btn size="sm" color="warning" round dense icon="delete"
+                                        @click="() => $parent.$emit('delete', props.row)"
+                                    />
+                                </q-td>
+                                <q-td key="id" :props="props">
+                                    {{ props.row.id }}
+                                </q-td>
+                                <q-td key="title" :props="props">
+                                    {{ props.row.title }}
+                                </q-td>
+                                <q-td auto-width >
+                                    <q-btn size="sm" color="warning" round dense icon="check"
+                                        @click="() => $parent.$emit('complete_task', props.row)"
+                                    />
+                                </q-td>
+                            </q-tr>
+                            """,
             )
             with table.add_slot("bottom-row"):
                 with table.cell().props("colspan=3"):
@@ -128,6 +134,7 @@ class GroupView:
                         on_click=lambda: self.add_row(table=table, rows=rows, msg="새로운 활동을 등록했습니다."),
                     ).classes("w-full")
             table.on("delete", lambda e: self.delete(table=table, e=e, rows=rows, msg=f'활동 {e.args["id"]}번을 삭제했습니다.'))
+            table.on("complete_task", lambda e: self.complete_task(table=table, e=e))
 
     async def set_new_participant_alarm(self):
         columns = [
@@ -141,40 +148,40 @@ class GroupView:
             table.add_slot(
                 "header",
                 """
-                         <q-tr :props="props">
-                            <q-th auto-width />
-                            <q-th auto-width>
-                                신청자 ID
-                            </q-th>
-                            <q-th auto-width>
-                                신청자
-                            </q-th>
-                            <q-th auto-width />
-                        </q-tr>
-                        """,
+                             <q-tr :props="props">
+                                <q-th auto-width />
+                                <q-th auto-width>
+                                    신청자 ID
+                                </q-th>
+                                <q-th auto-width>
+                                    신청자
+                                </q-th>
+                                <q-th auto-width />
+                            </q-tr>
+                            """,
             )
             table.add_slot(
                 "body",
                 """
-                        <q-tr :props="props">
-                            <q-td auto-width >
-                                <q-btn size="sm" color="warning" round dense icon="delete"
-                                    @click="() => $parent.$emit('delete', props.row)"
-                                />
-                            </q-td>
-                            <q-td key="id" :props="props">
-                                {{ props.row.id }}
-                            </q-td>
-                            <q-td key="nickname" :props="props">
-                                {{ props.row.nickname }}
-                            </q-td>
-                            <q-td auto-width >
-                                <q-btn size="sm" color="info" round dense icon="add"
-                                    @click="() => $parent.$emit('accept_participant', props.row)"
-                                />
-                            </q-td>
-                        </q-tr>
-                        """,
+                            <q-tr :props="props">
+                                <q-td auto-width >
+                                    <q-btn size="sm" color="warning" round dense icon="delete"
+                                        @click="() => $parent.$emit('delete', props.row)"
+                                    />
+                                </q-td>
+                                <q-td key="id" :props="props">
+                                    {{ props.row.id }}
+                                </q-td>
+                                <q-td key="nickname" :props="props">
+                                    {{ props.row.nickname }}
+                                </q-td>
+                                <q-td auto-width >
+                                    <q-btn size="sm" color="info" round dense icon="check"
+                                        @click="() => $parent.$emit('accept_participant', props.row)"
+                                    />
+                                </q-td>
+                            </q-tr>
+                            """,
             )
             table.on("delete", lambda e: self.delete(table=table, e=e, rows=rows, msg=f'{e.args["id"]}의 신청을 취소했습니다.'))
             table.on("accept_participant", lambda e: self.accept_participant(table=table, e=e, rows=rows))
@@ -193,52 +200,52 @@ class GroupView:
             table.add_slot(
                 "header",
                 """
-                         <q-tr :props="props">
-                            <q-th auto-width />
-                            <q-th auto-width>
-                                신청자 ID
-                            </q-th>
-                            <q-th auto-width>
-                                신청자
-                            </q-th>
-                            <q-th auto-width>
-                                활동 ID
-                            </q-th>
-                            <q-th auto-width>
-                                활동명
-                            </q-th>
-                            <q-th auto-width />
-                        </q-tr>
-                        """,
+                             <q-tr :props="props">
+                                <q-th auto-width />
+                                <q-th auto-width>
+                                    신청자 ID
+                                </q-th>
+                                <q-th auto-width>
+                                    신청자
+                                </q-th>
+                                <q-th auto-width>
+                                    활동 ID
+                                </q-th>
+                                <q-th auto-width>
+                                    활동명
+                                </q-th>
+                                <q-th auto-width />
+                            </q-tr>
+                            """,
             )
             table.add_slot(
                 "body",
                 """
-                        <q-tr :props="props">
-                            <q-td auto-width >
-                                <q-btn size="sm" color="warning" round dense icon="delete"
-                                    @click="() => $parent.$emit('delete', props.row)"
-                                />
-                            </q-td>
-                            <q-td key="id" :props="props">
-                                {{ props.row.id }}
-                            </q-td>
-                            <q-td key="nickname" :props="props">
-                                {{ props.row.nickname }}
-                            </q-td>
-                            <q-td key="task_id" :props="props">
-                                {{ props.row.task_id }}
-                            </q-td>
-                            <q-td key="task_name" :props="props">
-                                {{ props.row.task_name }}
-                            </q-td>
-                            <q-td auto-width >
-                                <q-btn size="sm" color="info" round dense icon="add"
-                                    @click="() => $parent.$emit('accept_task', props.row)"
-                                />
-                            </q-td>
-                        </q-tr>
-                        """,
+                            <q-tr :props="props">
+                                <q-td auto-width >
+                                    <q-btn size="sm" color="warning" round dense icon="delete"
+                                        @click="() => $parent.$emit('delete', props.row)"
+                                    />
+                                </q-td>
+                                <q-td key="id" :props="props">
+                                    {{ props.row.id }}
+                                </q-td>
+                                <q-td key="nickname" :props="props">
+                                    {{ props.row.nickname }}
+                                </q-td>
+                                <q-td key="task_id" :props="props">
+                                    {{ props.row.task_id }}
+                                </q-td>
+                                <q-td key="task_name" :props="props">
+                                    {{ props.row.task_name }}
+                                </q-td>
+                                <q-td auto-width >
+                                    <q-btn size="sm" color="info" round dense icon="check"
+                                        @click="() => $parent.$emit('accept_task', props.row)"
+                                    />
+                                </q-td>
+                            </q-tr>
+                            """,
             )
             table.on("delete", lambda e: self.delete(table=table, e=e, rows=rows, msg=f'{e.args["id"]}의 요청을 취소했습니다.'))
             table.on("accept_task", lambda e: self.accept_task(table=table, e=e, rows=rows))
@@ -263,6 +270,9 @@ class GroupView:
         ui.notify(f"{e.args['id']}의 요청을 수락했습니다.")
         rows[:] = [row for row in rows if row["id"] != e.args["id"]]
         table.update()
+
+    def complete_task(self, table: Table, e: GenericEventArguments) -> None:
+        ui.notify(f"{e.args['title']}를 완료했습니다.")
 
 
 group = GroupView()()
